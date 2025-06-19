@@ -7,6 +7,10 @@ function TaskPage() {
   const [searchParams] = useSearchParams();
   const title = searchParams.get("title");
   const description = searchParams.get("description");
+  const date = searchParams.get("date");
+  const time = searchParams.get("time");
+  const priority = searchParams.get("priority");
+
   return (
     <div className="h-screen w-screen bg-slate-500 p-6">
       <div className="w-[500] mx-auto space-y-4">
@@ -23,6 +27,9 @@ function TaskPage() {
         <div className="bg-slate-200 p-4 rounded-md">
           <h2 className="text-xl font-bold text-slate-600">{title}</h2>
           <p className="text-slate-600">{description}</p>
+          <p className="text-slate-600">Date: {date}</p>
+          <p className="text-slate-600">Duration: {time}</p>
+          <p className="text-slate-600">Priority: {priority}</p>
         </div>
       </div>
     </div>
