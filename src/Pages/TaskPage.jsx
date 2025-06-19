@@ -28,7 +28,7 @@ function TaskPage() {
           <h2 className="text-xl font-bold text-slate-600">{title}</h2>
           <p className="text-slate-600">{description}</p>
           <p className="text-slate-600">Date: {date}</p>
-          <p className="text-slate-600">Duration: {time}</p>
+          <p className="text-slate-600">At: {time}</p>
           <p className="text-slate-600">Priority: {priority}</p>
         </div>
       </div>
