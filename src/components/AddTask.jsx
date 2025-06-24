@@ -7,8 +7,6 @@ function AddTask({ onAddTaskSubmit }) {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [priority, setPriority] = useState("");
-  const [dateInputType, setDateInputType] = useState("text");
-  const [timeInputType, setTimeInputType] = useState("text");
 
   return (
     <div className="space-y-4 p-6 bg-slate-200 rounded-md shadow flex flex-col">
@@ -24,26 +22,26 @@ function AddTask({ onAddTaskSubmit }) {
         value={description}
         onChange={(event) => setDescription(event.target.value)}
       />
-      <Input
-        type={dateInputType}
-        placeholder={
-          dateInputType === "text" ? "Select the date of your task" : ""
-        }
-        value={date}
-        onChange={(event) => setDate(event.target.value)}
-        onFocus={() => setDateInputType("date")}
-        onBlur={() => !date && setDateInputType("text")}
-      />
-      <Input
-        type={timeInputType}
-        placeholder={
-          timeInputType === "text" ? "Select the time of your task" : ""
-        }
-        value={time}
-        onChange={(event) => setTime(event.target.value)}
-        onFocus={() => setTimeInputType("time")}
-        onBlur={() => !time && setTimeInputType("text")}
-      />
+      <div className="flex items-center gap-3">
+        <span className="text-gray-700 font-medium">📅 Select date:</span>
+        <div className="flex-1">
+          <Input
+            type="date"
+            value={date}
+            onChange={(event) => setDate(event.target.value)}
+          />
+        </div>
+      </div>
+      <div className="flex items-center gap-3">
+        <span className="text-gray-700 font-medium">🕐 Select time:</span>
+        <div className="flex-1">
+          <Input
+            type="time"
+            value={time}
+            onChange={(event) => setTime(event.target.value)}
+          />
+        </div>
+      </div>
       <select
         value={priority}
         onChange={(event) => setPriority(event.target.value)}
