@@ -7,6 +7,8 @@ function AddTask({ onAddTaskSubmit }) {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [priority, setPriority] = useState("");
+  const [dateInputType, setDateInputType] = useState("text");
+  const [timeInputType, setTimeInputType] = useState("text");
 
   return (
     <div className="space-y-4 p-6 bg-slate-200 rounded-md shadow flex flex-col">
@@ -23,38 +25,29 @@ function AddTask({ onAddTaskSubmit }) {
         onChange={(event) => setDescription(event.target.value)}
       />
       <Input
-        type="date"
+        type={dateInputType}
+        placeholder={
+          dateInputType === "text" ? "Select the date of your task" : ""
+        }
         value={date}
         onChange={(event) => setDate(event.target.value)}
-        size="large"
-        style={{
-          backgroundColor: "#fff",
-          borderColor: "#d9d9d9",
-        }}
+        onFocus={() => setDateInputType("date")}
+        onBlur={() => !date && setDateInputType("text")}
       />
       <Input
-        type="time"
+        type={timeInputType}
+        placeholder={
+          timeInputType === "text" ? "Select the time of your task" : ""
+        }
         value={time}
         onChange={(event) => setTime(event.target.value)}
-        size="large"
-        style={{
-          backgroundColor: "#fff",
-          borderColor: "#d9d9d9",
-        }}
+        onFocus={() => setTimeInputType("time")}
+        onBlur={() => !time && setTimeInputType("text")}
       />
       <select
         value={priority}
         onChange={(event) => setPriority(event.target.value)}
-        style={{
-          backgroundColor: "white",
-          border: "2px solid #d9d9d9",
-          borderRadius: "6px",
-          padding: "8px 12px",
-          fontSize: "16px",
-          color: "#333",
-          width: "100%",
-          minHeight: "40px",
-        }}
+        className="border border-slate-300 outline-slate-400 px-4 py-2 rounded-md"
       >
         <option value="">Select your priority:</option>
         <option value="low">🟢 Low</option>
