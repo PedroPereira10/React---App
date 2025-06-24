@@ -26,18 +26,41 @@ function AddTask({ onAddTaskSubmit }) {
         type="date"
         value={date}
         onChange={(event) => setDate(event.target.value)}
+        size="large"
+        style={{
+          backgroundColor: "#fff",
+          borderColor: "#d9d9d9",
+        }}
       />
       <Input
         type="time"
         value={time}
         onChange={(event) => setTime(event.target.value)}
+        size="large"
+        style={{
+          backgroundColor: "#fff",
+          borderColor: "#d9d9d9",
+        }}
       />
-      <Input
-        type="text"
-        placeholder="Set the priority of your task (low, medium, high)"
+      <select
         value={priority}
         onChange={(event) => setPriority(event.target.value)}
-      />
+        style={{
+          backgroundColor: "white",
+          border: "2px solid #d9d9d9",
+          borderRadius: "6px",
+          padding: "8px 12px",
+          fontSize: "16px",
+          color: "#333",
+          width: "100%",
+          minHeight: "40px",
+        }}
+      >
+        <option value="">Select your priority:</option>
+        <option value="low">🟢 Low</option>
+        <option value="medium">🟡 Medium</option>
+        <option value="high">🔴 High</option>
+      </select>
       <button
         onClick={() => {
           if (
