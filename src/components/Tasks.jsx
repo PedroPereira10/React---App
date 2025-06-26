@@ -25,7 +25,10 @@ function Tasks({ tasks, onTaskClick, onDeleteTaskClick }) {
               task.isCompleted && "line-through"
             }`}
           >
-            {task.title}
+            {task.priority === "low" && "🟢"}
+            {task.priority === "medium" && "🟡"}
+            {task.priority === "high" && "🔴"}
+            <span className="ml-1">{task.title}</span>
           </button>
 
           <Button onClick={() => onSeeDetailsClick(task)}>

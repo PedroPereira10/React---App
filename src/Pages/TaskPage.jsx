@@ -29,7 +29,12 @@ function TaskPage() {
           <p className="text-slate-600">{description}</p>
           <p className="text-slate-600">Date: {date}</p>
           <p className="text-slate-600">At: {time}</p>
-          <p className="text-slate-600">Priority: {priority}</p>
+          <p className="text-slate-600 flex items-center gap-1">
+            Priority:
+            {priority === "low" && <span>🟢 Low</span>}
+            {priority === "medium" && <span>🟡 Medium</span>}
+            {priority === "high" && <span>🔴 High</span>}
+          </p>
         </div>
       </div>
     </div>
