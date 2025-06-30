@@ -61,8 +61,8 @@ function App() {
   }
 
   return (
-    <div className="w-screen h-screen bg-slate-500 flex justify-center p-6">
-      <div className="w-[500px] space-y-4">
+    <div className="min-h-screen w-full bg-slate-500 flex justify-center p-4 md:p-6">
+      <div className="w-full max-w-md space-y-4">
         <Title>Task Manager</Title>
         <AddTask onAddTaskSubmit={onAddTaskSubmit} />
         <Tasks
