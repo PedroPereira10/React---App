@@ -100,39 +100,45 @@ function TaskPage() {
   };
 
   return (
-    <div className="h-screen w-screen bg-slate-500 p-6">
-      <div className="w-[500px] mx-auto space-y-4">
-        <div className="flex justify-center relative">
+    <div className="min-h-screen w-full bg-slate-500 p-4 md:p-6">
+      <div className="w-full max-w-md mx-auto space-y-4">
+        <div className="flex justify-center relative mb-4">
           <button
             onClick={() => navigate(-1)}
-            className="absolute left-0 top-0 bottom-0 mb-6 text-slate-100"
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 text-slate-100 hover:text-slate-300 transition-colors p-1"
           >
-            <ChevronLeft />
+            <ChevronLeft size={24} />
           </button>
           <Title>Task Details</Title>
         </div>
 
         <div className="bg-slate-200 p-4 rounded-md">
-          <h2 className="text-xl font-bold text-slate-600 text-center">
+          <h2 className="text-lg md:text-xl font-bold text-slate-600 text-center mb-3">
             {title}
           </h2>
-          <p className="text-slate-600">{description}</p>
-          <p className="text-slate-600">Date: {date}</p>
-          <p className="text-slate-600">At: {time}</p>
-          <p className="text-slate-600 flex items-center gap-1">
-            Priority :{priority === "low" && <span>🟢 Low</span>}
-            {priority === "medium" && <span>🟡 Medium</span>}
-            {priority === "high" && <span>🔴 High</span>}
-          </p>
+          <div className="space-y-2">
+            <p className="text-slate-600 text-sm md:text-base">{description}</p>
+            <p className="text-slate-600 text-sm md:text-base">Date: {date}</p>
+            <p className="text-slate-600 text-sm md:text-base">At: {time}</p>
+            <p className="text-slate-600 flex items-center gap-1 text-sm md:text-base">
+              Priority:
+              {priority === "low" && <span>🟢 Low</span>}
+              {priority === "medium" && <span>🟡 Medium</span>}
+              {priority === "high" && <span>🔴 High</span>}
+            </p>
+          </div>
         </div>
 
-        <div className="space-y-4 p-6 bg-slate-200 rounded-md shadow ">
+        <div className="bg-slate-200 p-4 rounded-md">
           <button
             onClick={downloadPDF}
-            className="bg-slate-500 text-left w-full text-white p-2 rounded-md flex justify-center gap-2"
+            className="bg-slate-500 hover:bg-slate-600 text-white w-full p-3 rounded-md flex justify-center items-center gap-2 transition-colors font-medium text-sm md:text-base"
           >
-            <Download size={20} />
-            Download Task Details as PDF
+            <Download size={18} />
+            <span className="hidden sm:inline">
+              Download Task Details as PDF
+            </span>
+            <span className="sm:hidden">Download PDF</span>
           </button>
         </div>
       </div>
