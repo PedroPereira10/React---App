@@ -23,7 +23,7 @@ function AddTask({ onAddTaskSubmit }) {
         onChange={(event) => setDescription(event.target.value)}
       />
       <div className="flex items-center gap-3">
-        <span className="text-gray-700 font-medium">📅 Select date:</span>
+        <span className="text-gray-700 font-medium">📅 Select date :</span>
         <div className="flex-1">
           <Input
             type="date"
@@ -33,7 +33,7 @@ function AddTask({ onAddTaskSubmit }) {
         </div>
       </div>
       <div className="flex items-center gap-3">
-        <span className="text-gray-700 font-medium">🕐 Select time:</span>
+        <span className="text-gray-700 font-medium">🕐 Select time :</span>
         <div className="flex-1">
           <Input
             type="time"
@@ -47,7 +47,7 @@ function AddTask({ onAddTaskSubmit }) {
         onChange={(event) => setPriority(event.target.value)}
         className="border border-slate-300 outline-slate-400 px-4 py-2 rounded-md"
       >
-        <option value="">Select your priority:</option>
+        <option value="">Select your priority :</option>
         <option value="low">🟢 Low</option>
         <option value="medium">🟡 Medium</option>
         <option value="high">🔴 High</option>
