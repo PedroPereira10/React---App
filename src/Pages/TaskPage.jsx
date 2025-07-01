@@ -132,7 +132,7 @@ function TaskPage() {
         <div className="bg-slate-200 p-4 rounded-md">
           <button
             onClick={downloadPDF}
-            className="bg-slate-500 hover:bg-slate-600 text-white w-full p-3 rounded-md flex justify-center items-center gap-2 transition-colors font-medium text-sm md:text-base"
+            className="bg-slate-500 text-white w-full p-3 rounded-md flex justify-center items-center gap-2 transition-colors font-medium text-sm md:text-base"
           >
             <Download size={18} />
             <span className="hidden sm:inline">

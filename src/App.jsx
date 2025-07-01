@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import AddTask from "./components/AddTask";
 import Tasks from "./components/Tasks";
+import Filter from "./components/filter"; // Corrigido: maiúscula
 import { v4 } from "uuid";
 import Title from "./components/Title";
 
@@ -8,6 +9,9 @@ function App() {
   const [tasks, setTasks] = useState(
     JSON.parse(localStorage.getItem("tasks")) || []
   );
+
+  // Estado para controlar o filtro ativo
+  const [selectedPriority, setSelectedPriority] = useState("");
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -21,16 +25,18 @@ function App() {
   //         method: "GET",
   //       }
   //     );
-
-  //     // PEGAR DADOS QUE ELA RETORNA
   //     const data = await response.json();
-
-  //     // ARMAZENAR/PERSISTIR ESSES DADOS NO STATE
   //     setTasks(data);
   //   }
-  // SE QUISER, VOCE PDOE CHAMAR UMA API PARA PEGAR AS TAREFAS
   //   fetchTasks();
   // }, []);
+
+  function filterTasksByPriority(tasks, priority) {
+    if (priority === "" || priority === "all") {
+      return tasks;
+    }
+    return tasks.filter((task) => task.priority === priority);
+  }
 
   function onTaskClick(taskId) {
     const newTasks = tasks.map((task) => {
@@ -43,9 +49,14 @@ function App() {
   }
 
   function onDeleteTaskClick(taskId) {
+  const confirmed = window.confirm("Are you sure you want to delete this task?");
+  if (confirmed) {
+    alert("Task deleted successfully!");
     const newTasks = tasks.filter((task) => task.id !== taskId);
     setTasks(newTasks);
   }
+}
+
 
   function onAddTaskSubmit(title, description, date, time, priority) {
     const newTask = {
@@ -60,13 +71,25 @@ function App() {
     setTasks([...tasks, newTask]);
   }
 
+  // Função para lidar com mudança de filtro
+  function onPriorityChange(priority) {
+    setSelectedPriority(priority);
+  }
+
+  // Aplicar o filtro às tarefas
+  const filteredTasks = filterTasksByPriority(tasks, selectedPriority);
+
   return (
     <div className="min-h-screen w-full bg-slate-500 flex justify-center p-4 md:p-6">
       <div className="w-full max-w-md space-y-4">
         <Title>Task Manager</Title>
         <AddTask onAddTaskSubmit={onAddTaskSubmit} />
+        <Filter
+          selectedPriority={selectedPriority}
+          OnPriorityChange={onPriorityChange}
+        />
         <Tasks
-          tasks={tasks}
+          tasks={filteredTasks} // Usando tarefas filtradas
           onTaskClick={onTaskClick}
           onDeleteTaskClick={onDeleteTaskClick}
         />
