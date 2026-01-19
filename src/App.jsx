@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import AddTask from "./components/AddTask";
 import Tasks from "./components/Tasks";
-import Filter from "./components/filter"; // Corrigido: maiúscula
+import Filter from "./components/filter";
 import { v4 } from "uuid";
 import Title from "./components/Title";
 
 function App() {
   const [tasks, setTasks] = useState(
-    JSON.parse(localStorage.getItem("tasks")) || []
+    JSON.parse(localStorage.getItem("tasks")) || [],
   );
 
   // Estado para controlar o filtro ativo
   const [selectedPriority, setSelectedPriority] = useState("");
+  const [taskBeingEdited, setTaskBeingEdited] = useState(null);
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -49,26 +50,47 @@ function App() {
   }
 
   function onDeleteTaskClick(taskId) {
-  const confirmed = window.confirm("Are you sure you want to delete this task?");
-  if (confirmed) {
-    alert("Task deleted successfully!");
-    const newTasks = tasks.filter((task) => task.id !== taskId);
-    setTasks(newTasks);
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this task?",
+    );
+    if (confirmed) {
+      alert("Task deleted successfully!");
+      const newTasks = tasks.filter((task) => task.id !== taskId);
+      setTasks(newTasks);
+    }
   }
-}
 
-
-  function onAddTaskSubmit(title, description, date, time, priority) {
-    const newTask = {
-      id: v4(),
-      title,
-      description,
-      date,
-      time,
-      priority,
-      isCompleted: false,
-    };
-    setTasks([...tasks, newTask]);
+  function onAddOrEditTaskSubmit(title, description, date, time, priority) {
+    if (taskBeingEdited) {
+      setTasks(
+        tasks.map((task) =>
+          task.id === taskBeingEdited.id
+            ? {
+                ...task,
+                title,
+                description,
+                date,
+                time,
+                priority,
+              }
+            : task,
+        ),
+      );
+      setTaskBeingEdited(null);
+    } else {
+      setTasks([
+        ...tasks,
+        {
+          id: v4(),
+          title,
+          description,
+          date,
+          time,
+          priority,
+          isCompleted: false,
+        },
+      ]);
+    }
   }
 
   // Função para lidar com mudança de filtro
@@ -83,15 +105,19 @@ function App() {
     <div className="min-h-screen w-full bg-slate-500 flex justify-center p-4 md:p-6">
       <div className="w-full max-w-md space-y-4">
         <Title>Task Manager</Title>
-        <AddTask onAddTaskSubmit={onAddTaskSubmit} />
+        <AddTask
+          onAddTaskSubmit={onAddOrEditTaskSubmit}
+          taskBeingEdited={taskBeingEdited}
+        />
         <Filter
           selectedPriority={selectedPriority}
           OnPriorityChange={onPriorityChange}
         />
         <Tasks
-          tasks={filteredTasks} // Usando tarefas filtradas
+          tasks={filteredTasks}
           onTaskClick={onTaskClick}
           onDeleteTaskClick={onDeleteTaskClick}
+          onEditTaskClick={setTaskBeingEdited}
         />
       </div>
     </div>

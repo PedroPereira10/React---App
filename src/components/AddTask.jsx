@@ -1,12 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "./input";
 
-function AddTask({ onAddTaskSubmit }) {
+function AddTask({ onAddTaskSubmit, taskBeingEdited }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [priority, setPriority] = useState("");
+
+  useEffect(() => {
+    if (taskBeingEdited) {
+      setTitle(taskBeingEdited.title);
+      setDescription(taskBeingEdited.description);
+      setDate(taskBeingEdited.date);
+      setTime(taskBeingEdited.time);
+      setPriority(taskBeingEdited.priority);
+    }
+  }, [taskBeingEdited]);
 
   return (
     <div className="space-y-4 p-6 bg-slate-200 rounded-md shadow flex flex-col">
@@ -72,7 +82,7 @@ function AddTask({ onAddTaskSubmit }) {
         }}
         className="bg-slate-500 text-white px-4 py-2 rounded-md font-medium"
       >
-        Add
+        {taskBeingEdited ? "Save changes" : "Add Task"}
       </button>
     </div>
   );
